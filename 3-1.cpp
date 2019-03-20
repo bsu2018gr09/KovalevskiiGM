@@ -1,3 +1,4 @@
+//Определить количество слов в строке, которые начинаются на заданную букву. Вывести их на экран.
 #define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
 #include <clocale>
