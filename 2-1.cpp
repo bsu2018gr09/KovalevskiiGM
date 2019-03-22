@@ -59,7 +59,7 @@ void freeMemory(int** ptr, int n, int m) {
 	for (int i = 0; i < m; i++) {
 		delete[] ptr[i];
 		ptr[i] = nullptr;
-	}
+	}//не хватает ещё delete
 }
 
 void sortAr(int** ptr, int n, int m) {
@@ -72,7 +72,7 @@ void sortAr(int** ptr, int n, int m) {
 		max = pp[i][m-1];
 		for( i+k; k<n; ++k)
 			if (ptr[i+k][m-1] >= max) {
-				ptr[i] = ptr[i+k];
+				ptr[i] = ptr[i+k]; // ошибка. Утечка памяти
 			}
 		
 		
