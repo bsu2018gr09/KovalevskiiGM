@@ -1,5 +1,4 @@
 //В массиве А(N,M) переставить строки в порядке возрастания элементов последнего столбца.
-//Примечание: Основное задание не выполнено, у меня вылетает runtime error. Постараюсь разобраться.
 #include <iostream>
 #include <clocale>
 #include <ctime>
@@ -32,8 +31,17 @@ int main() {
 
 int** giveMemory(int n, int m) {
 	int** ptr = new (nothrow) int*[n];
-	for (int i = 0; i < m; i++)
+	if (!ptr) {
+		cout << "Error!" << '\n';
+		exit(1);
+	}
+	for (int i = 0; i < m; i++) {
 		ptr[i] = new (nothrow) int[m];
+		if (!ptr) {
+			cout << "Error!" << '\n';
+			exit(1);
+		}
+	}
 	return ptr;
 }
 
@@ -59,20 +67,19 @@ void freeMemory(int** ptr, int n, int m) {
 	for (int i = 0; i < m; i++) {
 		delete[] ptr[i];
 		ptr[i] = nullptr;
-	}//не хватает ещё delete
+	}
+	delete[] ptr;
+	ptr = nullptr;
 }
 
 void sortAr(int** ptr, int n, int m) {
 	int max(0);
 	int k(1);
-	int* maxp = nullptr;
-	int* tmp = nullptr;
-	int** pp = ptr;
 	for (int i = 0; i < n-1; ++i) {
-		max = pp[i][m-1];
-		for( i+k; k<n; ++k)
+		max = ptr[i][m-1];
+		for( k; k<n; ++k)
 			if (ptr[i+k][m-1] >= max) {
-				ptr[i] = ptr[i+k]; // ошибка. Утечка памяти
+				swap(ptr[i], ptr[i + k]);
 			}
 		
 		
