@@ -1,12 +1,12 @@
-#include<iostream>
+#include<iostream> //где условие задачи? Какой градиент ты делаешь???
 #include<fstream>  
 #include <clocale>
 using namespace std;
 struct color { unsigned char r; unsigned char g; unsigned char b; } c;
 struct tmp { float r; float g; float b; } t;
 
-void swap(unsigned char &a, unsigned char &b) {
-	a += b;
+void swap(unsigned char &a, unsigned char &b) {//зачем?????????????? Есть встроенный swap!!!
+	a += b;//это потенциально очень опасное место!!!!!!! Можно легко получить переполнение!!!!!
 	b = a - b;
 	a = a - b;
 }
