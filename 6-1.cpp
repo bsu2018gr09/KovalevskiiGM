@@ -27,6 +27,8 @@ public:
 		return *this;
 	}
 
+	~Parabola() { cout << "Destructor\n"; };
+
 	Parabola& operator + (const Parabola& other) {
 		this->a += other.a;
 		this->b += other.b;
@@ -125,6 +127,7 @@ int main() {
 	p2.findVertX();
 	p2.findVertY();
 	cout << setprecision(1) << "The vertex is: " << p2.getVertX() << " " << p2.getVertY() << '\n';
+	delete[] p;
 	system("pause");
 	return 0;
 }
