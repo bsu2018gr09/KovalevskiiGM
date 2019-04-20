@@ -44,14 +44,14 @@ public:
 	}
 
 	Parabola& operator * (float t) {
-		this->a *= t;
+		this->a *= t;//а проверить!!!!
 		this->b *= t;
 		this->c *= t;
 		return *this;
 	}
 
 	Parabola& operator / (float t) {
-		this->a /= t;
+		this->a /= t;////а проверить!!!!
 		this->b /= t;
 		this->c /= t;
 		return *this;
@@ -111,7 +111,7 @@ private:
 	float a;
 	float b;
 	float c;
-	float vertX;
+	float vertX;// и они почти всегда у тебя мусором будут заполнены!!!!
 	float vertY;
 };
 
