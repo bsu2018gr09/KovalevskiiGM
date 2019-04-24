@@ -7,9 +7,9 @@ using namespace std;
 
 class Parabola {
 public:
-	Parabola() : a(1), b(0), c(0) { cout << "Constructor by default\n"; };
+	Parabola() : a(1), b(0), c(0), vertX(0), vertY(0) { cout << "Constructor by default\n"; };
 
-	Parabola(float tmp1, float tmp2 = 0, float tmp3 = 0) : a(tmp1), b(tmp2), c(tmp3) {
+	Parabola(float tmp1, float tmp2 = 0, float tmp3 = 0) : a(tmp1), b(tmp2), c(tmp3), vertX(0), vertY(0) {
 		if (a == 0) {
 			cout << "This parabola does not exist!\n";
 			system("pause");
@@ -44,21 +44,31 @@ public:
 	}
 
 	Parabola& operator * (float t) {
-		this->a *= t;//а проверить!!!!
+		this->a *= t;
+		if (!this->a) {
+			cout << "This parabola does not exist!\n";
+			system("pause");
+			exit(1);
+		}
 		this->b *= t;
 		this->c *= t;
 		return *this;
 	}
 
 	Parabola& operator / (float t) {
-		this->a /= t;////а проверить!!!!
+		this->a /= t;
+		if (!t){
+			cout << "This parabola does not exist!\n";
+			system("pause");
+			exit(1);
+		}
 		this->b /= t;
 		this->c /= t;
 		return *this;
 	}
 
 	void seta(float t) { a = t;
-	if (a == 0) {
+	if (!a) {
 		cout << "This parabola does not exist!\n";
 		system("pause");
 		exit(1);
@@ -71,7 +81,7 @@ public:
 
 	void setall(float t, float m, float p) {
 		a = t;
-		if (a == 0) {
+		if (!a) {
 			cout << "This parabola does not exist!\n";
 			system("pause");
 			exit(1);
@@ -111,7 +121,7 @@ private:
 	float a;
 	float b;
 	float c;
-	float vertX;// и они почти всегда у тебя мусором будут заполнены!!!!
+	float vertX;
 	float vertY;
 };
 
@@ -122,7 +132,7 @@ int main() {
 	(*(p + 1)).setall(10, 10, 10);
 	cout << *p + p2 << '\n';
 	cout << *(p + 1) - p2 << '\n';
-	cout << *p * 3 << '\n';
+	cout << *p / 0 << '\n';
 	cout << *(p + 1) / 2 << '\n';
 	p2.findVertX();
 	p2.findVertY();
