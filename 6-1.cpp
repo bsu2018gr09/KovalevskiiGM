@@ -13,7 +13,7 @@ public:
 		if (a == 0) {
 			cout << "This parabola does not exist!\n";
 			system("pause");
-		exit(1);
+		exit(1);// правильно. И "рубим" чужой код, который вызвал наш оператор. Не жалко!!!
 		}
 		cout << "Constructor\n";
 	};
@@ -23,23 +23,23 @@ public:
 	Parabola& operator = (const Parabola& other) {
 		this->a = other.a;
 		this->b = other.b;
-		this->c = other.c;
+		this->c = other.c;//а внутри вершины теперь "мусор"!!!! здорово, Класс!!!!
 		return *this;
 	}
 
 	~Parabola() { cout << "Destructor\n"; };
 
 	Parabola& operator + (const Parabola& other) {
-		this->a += other.a;
+		this->a += other.a;//без проверок????
 		this->b += other.b;
-		this->c += other.c;
+		this->c += other.c;//а внутри вершины теперь "мусор"!!!! здорово, Класс!!!!
 		return *this;
 	}
 
 	Parabola& operator - (const Parabola& other) {
-		this->a -= other.a;
+		this->a -= other.a;//без проверок????
 		this->b -= other.b;
-		this->c -= other.c;
+		this->c -= other.c;//а внутри вершины теперь "мусор"!!!! здорово, Класс!!!!
 		return *this;
 	}
 
@@ -48,10 +48,10 @@ public:
 		if (!this->a) {
 			cout << "This parabola does not exist!\n";
 			system("pause");
-			exit(1);
+			exit(1);// правильно. И "рубим" чужой код, который вызвал наш оператор. Не жалко!!!
 		}
 		this->b *= t;
-		this->c *= t;
+		this->c *= t;//а внутри вершины теперь "мусор"!!!! здорово, Класс!!!!
 		return *this;
 	}
 
@@ -60,10 +60,10 @@ public:
 		if (!t){
 			cout << "This parabola does not exist!\n";
 			system("pause");
-			exit(1);
+			exit(1);// правильно. И "рубим" чужой код, который вызвал наш оператор. Не жалко!!!
 		}
 		this->b /= t;
-		this->c /= t;
+		this->c /= t;//а внутри вершины теперь "мусор"!!!! здорово, Класс!!!!
 		return *this;
 	}
 
@@ -84,15 +84,15 @@ public:
 		if (!a) {
 			cout << "This parabola does not exist!\n";
 			system("pause");
-			exit(1);
+			exit(1);// правильно. И "рубим" чужой код, который вызвал наш оператор. Не жалко!!!
 		}
 		b = m;
 		c = p;
 	}
 
-	void findVertX() { this->vertX = - this->b / (2 * this->a); };
+	void findVertX() { this->vertX = - this->b / (2 * this->a); };// зачем в public это????
 
-	void findVertY() { vertY = -(b*b - 4 * a * c) / (4 * a); };
+	void findVertY() { vertY = -(b*b - 4 * a * c) / (4 * a); };// зачем в public это????
 
 	float geta() { return a; };
 
