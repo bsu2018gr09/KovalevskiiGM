@@ -11,10 +11,11 @@ public:
 
 	Parabola(float tmp1, float tmp2 = 0, float tmp3 = 0) : a(tmp1), b(tmp2), c(tmp3), vertX(0), vertY(0) {
 		if (a == 0) {
-			cout << "This parabola does not exist!\n";
-			system("pause");
-		exit(1);// правильно. И "рубим" чужой код, который вызвал наш оператор. Не жалко!!!
+			cout << "This parabola does not exist! Setting the first coefficient to default\n";
+			a = 1;
 		}
+		findVertX();
+		findVertY();
 		cout << "Constructor\n";
 	};
 
@@ -23,55 +24,70 @@ public:
 	Parabola& operator = (const Parabola& other) {
 		this->a = other.a;
 		this->b = other.b;
-		this->c = other.c;//а внутри вершины теперь "мусор"!!!! здорово, Класс!!!!
+		this->c = other.c;
+		findVertX();
+		findVertY();
 		return *this;
 	}
 
 	~Parabola() { cout << "Destructor\n"; };
 
 	Parabola& operator + (const Parabola& other) {
-		this->a += other.a;//без проверок????
+		this->a += other.a;
+		if (!this->a) {
+			cout << "This parabola does not exist! Setting the first coefficient to default\n";
+			a = 1;
+		}
 		this->b += other.b;
-		this->c += other.c;//а внутри вершины теперь "мусор"!!!! здорово, Класс!!!!
+		this->c += other.c;
+		findVertX();
+		findVertY();
 		return *this;
 	}
 
 	Parabola& operator - (const Parabola& other) {
-		this->a -= other.a;//без проверок????
+		this->a -= other.a;
+		if (!this->a) {
+			cout << "This parabola does not exist! Setting the first coefficient to default\n";
+			a = 1;
+		}
 		this->b -= other.b;
-		this->c -= other.c;//а внутри вершины теперь "мусор"!!!! здорово, Класс!!!!
+		this->c -= other.c;
+		findVertX();
+		findVertY();
 		return *this;
 	}
 
 	Parabola& operator * (float t) {
 		this->a *= t;
 		if (!this->a) {
-			cout << "This parabola does not exist!\n";
-			system("pause");
-			exit(1);// правильно. И "рубим" чужой код, который вызвал наш оператор. Не жалко!!!
+			cout << "This parabola does not exist! Setting the first coefficient to default\n";
+			a = 1;
 		}
 		this->b *= t;
-		this->c *= t;//а внутри вершины теперь "мусор"!!!! здорово, Класс!!!!
+		this->c *= t;
+		findVertX();
+		findVertY();
 		return *this;
 	}
 
 	Parabola& operator / (float t) {
-		this->a /= t;
-		if (!t){
+		if (!t) {
 			cout << "This parabola does not exist!\n";
-			system("pause");
-			exit(1);// правильно. И "рубим" чужой код, который вызвал наш оператор. Не жалко!!!
+			return *this;
 		}
+		this->a /= t;
 		this->b /= t;
-		this->c /= t;//а внутри вершины теперь "мусор"!!!! здорово, Класс!!!!
+		this->c /= t;
+		findVertX();
+		findVertY();
 		return *this;
 	}
 
 	void seta(float t) { a = t;
 	if (!a) {
-		cout << "This parabola does not exist!\n";
-		system("pause");
-		exit(1);
+		cout << "This parabola does not exist! Setting the first coefficient to default\n";
+		a = 1;
 		}
 	};
 
@@ -79,20 +95,22 @@ public:
 
 	void setc(float t) { c = t; };
 
+	void findVertex(){
+		findVertX();
+		findVertY();
+	};
+
 	void setall(float t, float m, float p) {
 		a = t;
 		if (!a) {
-			cout << "This parabola does not exist!\n";
-			system("pause");
-			exit(1);// правильно. И "рубим" чужой код, который вызвал наш оператор. Не жалко!!!
+			cout << "This parabola does not exist! Setting the first coefficient to default\n";
+			a = 1;
 		}
 		b = m;
 		c = p;
 	}
 
-	void findVertX() { this->vertX = - this->b / (2 * this->a); };// зачем в public это????
-
-	void findVertY() { vertY = -(b*b - 4 * a * c) / (4 * a); };// зачем в public это????
+	
 
 	float geta() { return a; };
 
@@ -123,6 +141,8 @@ private:
 	float c;
 	float vertX;
 	float vertY;
+	void findVertX() { this->vertX = -this->b / (2 * this->a); };
+	void findVertY() { vertY = -(b*b - 4 * a * c) / (4 * a); };
 };
 
 int main() {
@@ -134,8 +154,10 @@ int main() {
 	cout << *(p + 1) - p2 << '\n';
 	cout << *p / 0 << '\n';
 	cout << *(p + 1) / 2 << '\n';
-	p2.findVertX();
-	p2.findVertY();
+	
+	cout << setprecision(1) << "The vertex is: " << p2.getVertX() << " " << p2.getVertY() << '\n';
+	p2.setb(10);
+	p2.findVertex();
 	cout << setprecision(1) << "The vertex is: " << p2.getVertX() << " " << p2.getVertY() << '\n';
 	delete[] p;
 	system("pause");
