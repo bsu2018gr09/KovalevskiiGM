@@ -68,7 +68,7 @@ void sortPrime(int* p, int N)
 				prevptr = curptr;
 				curptr = tmp;
 			}
-			else if (isPrime(*tmp)) {
+			else if (isPrime(*tmp)) {//так и будем по 2 раза проверять isPrime(*tmp). Никакой оптимизации!!!!
 				prevptr = curptr;
 				curptr = tmp;
 			}
