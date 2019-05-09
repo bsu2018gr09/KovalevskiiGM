@@ -1,8 +1,6 @@
 /*Положительные элементы массива А(N) переставить в конец массива, сохраняя порядок следования.
 Отрицательные элементы расположить в порядке убывания. Дополнительный массив не использовать.*/
 
-//Примечание: периодически программа крашится, а также во время выполнения появляется непонятное число, я не понимаю, почему :(
-// Ответ: я так и не видел тебя сидящим около меня с ноутом. Раз ты сам пошагово не можешь отлаживать, то научим....
 #include <iostream>
 #include <time.h>
 
@@ -13,6 +11,7 @@ int* newAr(int* p, int N);
 void freeAr(int* p);
 void randInit(int* p, int N);
 void sortAr(int* p, int N);
+void delAr(int*p);
 void printAr(int* p, int N);
 
 int main() {
@@ -21,9 +20,10 @@ int main() {
 	int* p = nullptr;
 	p = newAr(p, N);
 	randInit(p, N);
+	printAr(p, N);
 	sortAr(p, N);
 	printAr(p, N);
-
+	delAr(p);
 	system("pause");
 	return 0;
 }
@@ -53,7 +53,7 @@ void sortAr(int* p, int N) {
 	int* end = nullptr;
 	int* tmp = p;
 	int swap(0);
-	end = p + N;
+	end = p + N-1;
 		while (tmp != end)
 		{
 			if ((*tmp >= 0) && (*end < 0)) {
@@ -70,7 +70,7 @@ void sortAr(int* p, int N) {
 		}
 		tmp = nullptr;
 		
-		if (*end > 0)
+		if (*end >= 0)
 			end = end - 1;
 		tmp = p;
 		for (p; p < end; end--) {
@@ -93,5 +93,9 @@ void printAr(int* p, int N) {
 		cout << *(p + i) << ' ';
 	cout << '\n';
 }
-		
+	
+void delAr(int* p) {
+	delete[] p;
+	p = nullptr;
+}
 
