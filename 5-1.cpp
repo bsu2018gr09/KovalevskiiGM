@@ -24,15 +24,15 @@ int main() {
 	tmp t;
 	unsigned int w, h;//Надеемся, что тут 4 байта
 
-	r = 132;
-	g = 150;
-	b = 255;
+	r = 65;
+	g = 211;
+	b = 175;
 
-	rr = 239;
-	gg = 57;
-	bb = 220;
+	rr = 200;
+	gg = 112;
+	bb = 50;
 
-	steps = 10;
+	steps = 20;
 
 
 	fff.read((char *)&buf, 18);   //Чтение 18 байт заголовка bmp
@@ -51,8 +51,8 @@ int main() {
 	if (steps > w)
 		steps = w;
 
-	float miniSteps = w / steps;
-	float tmpSteps = miniSteps;
+	float colorSteps = w / steps;
+	float tmpSteps = colorSteps;
 	stepr = (float)(rr - r) / steps;
 	stepg = (float)(gg - g) / steps;
 	stepb = (float)(bb - b) / steps;
@@ -62,16 +62,18 @@ int main() {
 		for (unsigned int i = 1; i <= h; i++){
 			for (unsigned int j = 1; j <= w; j++ ) {
 				
-				if (j == miniSteps) {
-					miniSteps += tmpSteps;
+				if (j == colorSteps) {
+					colorSteps += tmpSteps;
 					t.r += stepr;
 					t.g += stepg;
 					t.b += stepb;
 				}
 				c.r = (unsigned char)t.r;
 				c.g = (unsigned char)t.g;
-				c.b = (unsigned char)t.g;
-				ggg.write((char *)&c, 3);
+				c.b = (unsigned char)t.b;
+				ggg.write((char *)&c.b, 1);
+				ggg.write((char *)&c.g, 1);
+				ggg.write((char *)&c.r, 1);
 				
 				
 			
@@ -80,30 +82,10 @@ int main() {
 			t.r = (float)r;
 			t.g = (float)g;
 			t.b = (float)b;
-		miniSteps = tmpSteps;
+		colorSteps = tmpSteps;
 	}
 
-	int l = 0;
-	for (unsigned int i = 1; i <= h; i++) {
-		for (unsigned int j = 1; j <= w; j++) {
-			if (l < steps) {
-				t.r += stepr;
-				t.g += stepg;
-				t.b += stepb;
-				c.r = (unsigned char)t.r;
-				c.g = (unsigned char)t.g;
-				c.b = (unsigned char)t.g;
-				++l;
-			}
-
-			ggg.write((char *)&c, 3);
-
-		}
-		t.r = (float)r;
-		t.g = (float)g;
-		t.b = (float)b;
-		l = 0;
-	}
+	
 	
 
 	fff.close();//закрыли файл
